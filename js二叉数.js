@@ -41,6 +41,7 @@ function insert(data) {
                 }
             }
             else {
+                // 只要进来了就必须将当前的节点的左侧或者右侧=======current
                 current = current.right;
                 if (current == null) {
                     parent.right = n;
@@ -53,10 +54,23 @@ function insert(data) {
 //调用两次递归遍历二叉树
 function inOrder(node) {
     if (!(node == null)) {
-       // console.log(node)
         inOrder(node.left);
         console.log(node.show())
         inOrder(node.right);
+    }
+}
+function postOrder(node) {
+    if (!(node == null)) {
+        postOrder(node.left);
+        postOrder(node.right);
+        console.log(node.show() + " ");
+    }
+}
+function preOrder(node) {
+    if (!(node == null)) {
+        console.log(node.show() + " ");
+        preOrder(node.left);
+        preOrder(node.right);
     }
 }
 //var nums=[]
@@ -73,3 +87,14 @@ nums.insert(22)
 
 //中序遍历二叉树
 inOrder(nums.root)
+// 后序
+postOrder(nums.root)
+// 先序
+preOrder(nums.root)
+
+/* Inorder traversal:
+ 3 16 22 23 37 45 99
+ Preorder traversal:
+ 23 16 3 22 45 37 99
+ Postorder traversal:
+ 3 22 16 37 99 45 23*/
