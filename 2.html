@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    const nums = [3, 3, 4, 4, 5, 5, 8]
+    var singleNumber = function (nums) {
+        var obj = {}
+        var ary = []
+        nums.map((item, index) => {
+            obj[item] = obj[item] ? obj[item] + 1 : 1
+        })
+        Object.entries(obj).map(([key, value]) => {
+            if (value == 1) {
+                ary.push(key)
+            }
+        })
+        return ary
+    };
+   console.log( singleNumber(nums))
+
+
+</script>

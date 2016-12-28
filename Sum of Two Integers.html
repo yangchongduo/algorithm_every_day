@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /**
+     * @param {number} a
+     * @param {number} b
+     * @return {number}
+     */
+    var getSum = function (a, b) {
+        // 类数组转正数组
+        const ary = Array.from(arguments)
+        var data = ary.reduce((a, b) => {
+            return a + b
+        })
+        return data
+    };
+    console.log(getSum(12,))
+
+
+</script>
+<script>
+    var pathSum = function (root, sum) {
+        function getPathSum(node, path, value) {
+            var isLeaf = true, tmp;
+            if (node.left) {
+                isLeaf = false;
+                getPathSum(node.left, path.concat(node.val), value + node.val);
+            }
+            if (node.right) {
+                isLeaf = false;
+                getPathSum(node.right, path.concat(node.val), value + node.val);
+            }
+            if (isLeaf) {
+                tmp = value + node.val;
+                if (tmp === sum) {
+                    res.push(path.concat(node.val));
+                }
+            }
+        }
+
+        var res = [];
+        if (root && root.val !== undefined) {
+            getPathSum(root, [], 0);
+        }
+        return res;
+    };
+
+
+</script>
