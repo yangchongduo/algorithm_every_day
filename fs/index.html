@@ -1,0 +1,104 @@
+<meta charset="UTF-8">
+   <title></title>
+   <link href="http://css.letvcdn.com/css/201412/09/webapp_110905/global.css " rel="stylesheet"/>
+   <link href="http://css.letvcdn.com/lc06_pay/201608/02/17/44/share.css" rel="stylesheet"/>
+   <link rel="stylesheet" href="http://css.letvcdn.com/lc05_iscms/201610/31/11/06/public.css"/>
+<link rel="stylesheet" href="http://css.letvcdn.com/lc04_pay/201605/24/16/03/common.min.css"/>
+   <% if(!obj.preview){ %>
+   <script>
+       if(window.location.href.indexOf("letv.com")!=-1){
+           var href=window.location.href.replace("letv.com","le.com");
+           window.location.href=href;
+       }
+   </script>
+   <% } %>
+
+<% var head = page_config.pageChildren.head,
+   describe = page_config.pageChildren.describe,
+    member = page_config.pageChildren.member,
+    base = page_config.pageChildren.base,
+    recommend = page_config.pageChildren.recommend;
+%>
+<style>
+
+</style>
+</head>
+<body style="background:#fff">
+<article>
+ <div class="top-btns">
+   ${JSON.stringify(page_config.pageChildren.base)}
+ </div>
+</article>
+
+<% if(!obj.preview){ %>
+<script src="http://js.letvcdn.com/lc03_pay/201512/17/17/12/jquery-1.10.1.min.js"></script>
+<script>
+   $.noConflict();
+</script>
+<script src="http://js.letvcdn.com/lc06_pay/201609/12/19/13/StatsMi.min.js"></script>
+<script src="http://js.static.letvlb.com/sdk/passport.js"></script>
+<script src="http://js.letvcdn.com/lc05_pay/201601/28/17/56/jquery.cookie.js"></script>
+<script src="http://js.letvcdn.com/lc07_iscms/201610/16/19/07/common-1.5.js"></script>
+<!--<script src="style.js"></script>-->
+<script src="http://js.letvcdn.com/lc06_iscms/201611/14/12/26/online-m.js"></script>
+<script src="http://js.letvcdn.com/lc04_iscms/201611/11/15/59/index-m.js"></script>
+<% } %>
+
+<% if(obj.preview){ %>
+<script src="http://js.letvcdn.com/lc03_pay/201512/17/17/12/jquery-1.10.1.min.js"></script>
+<script src="http://js.letvcdn.com/lc05_pay/201601/28/17/56/jquery.cookie.js"></script>
+<script src="http://js.letvcdn.com/lc07_iscms/201610/16/19/07/common-1.5.js"></script>
+<!--<script src="style.js"></script>-->
+<script>
+   (function() {
+       (document.documentElement.style.fontSize = (document.documentElement.clientWidth > 640 ? 20 : 20 * document.documentElement.clientWidth / 640) + "px")
+   })();
+   var section = config.preview.section;
+   // 预览 HEAD
+   if(section === 'base'){
+//        var styles = base(config);
+//        $("#style").html(styles);
+       scroll(0, 0);
+       $('.act-footer').show();
+   }
+   // 预览 BODY
+   else if (section === 'describe') {
+       scroll(0, $('.sales').offset().top);
+   }
+   else if (section === 'recommend') {
+       scroll(0, $('.movie-title-wrap').offset().top);
+   }
+   else if (section === 'member') {
+       scroll(0, $('.rights').offset().top);
+   }
+   else if (section === 'modalSubmitSuccess') {
+       $(document.body).css({'height': '100%', 'overflow': 'hidden'});
+       $('article').css({'height': '100%', 'overflow': 'hidden'});
+       $('.mask').show();
+       $('.dialog').show();
+       $('.dialog-alert-success').show();
+   }
+   else if (section === 'modalSubmit' || section === 'modalbase') {
+       $(document.body).css({'height': '100%', 'overflow': 'hidden'});
+       $('article').css({'height': '100%', 'overflow': 'hidden'});
+       $('.mask').show();
+       $('.dialog').show();
+       $('.dialog-form').show();
+   }
+   else if (section === 'activity') {
+       $(document.body).css({'height': '100%', 'overflow': 'hidden'});
+       $('article').css({'height': '100%', 'overflow': 'hidden'});
+       $('.mask').show();
+       $('.dialog').show();
+       $('.dialog-rules').show();
+   }
+   else if (section === 'mygift') {
+       $(document.body).css({'height': '100%', 'overflow': 'hidden'});
+       $('article').css({'height': '100%', 'overflow': 'hidden'});
+       $('.mask').show();
+       $('.dialog').show();
+       $('.dialog-gift').show();
+   }
+</script>
+<% } %>
+</body>

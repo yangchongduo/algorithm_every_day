@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  //  var numArray = [0189459, 0189460, 0189461, 0189463, 0189465];
+    var numArray =  [4,3,2,7,8,2,3,1]
+    var mia = [];
+
+    for (var i = 1; i < numArray.length; i++) {
+        if (numArray[i] - numArray[i - 1] != 1) {
+            var x = numArray[i] - numArray[i - 1];
+            var j = 1;
+            while (j < x) {
+                mia.push(numArray[i - 1] + j);
+                j++;
+            }
+        }
+    }
+    console.log(mia) // returns [0189462, 0189464]
+
+
+</script>
+<script>
+    var a = [1,4,7], count = a[a.length - 1];
+    var missing = [];
+    for ( var i = 1; i <= count; i++ ) {
+        if (a.indexOf(i) == -1) {
+            missing.push(i);
+        }
+    }
+    console.log(missing.toString());
+
+
+</script>

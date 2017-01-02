@@ -8,7 +8,6 @@ function sum(arr) {
 
 
 console.log(sum([1, 2, 3, 4]))
-// 注意 reduce的第二个参数
 /*var sum2 = function (arr) {
     return arr.reduce(function (prev, curr, index, arr) {
         return prev + curr;

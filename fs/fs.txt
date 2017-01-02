@@ -1,0 +1,49 @@
+makeP('a/b/c/d');
+function makeP(path){
+    //将path以/的方式分割开
+    var arr = path.split('/');
+    //在原数组里，不停的取相对应的目录，加入/
+    for(var i = 1; i<=arr.length;i++){
+       var curDir =  arr.slice(0,i).join('/');
+        //我们在创建目录之前，要先查看curDir是否存在
+       var flag = fs.existsSync(curDir);
+        //flag表示当前是否存在
+        if(!flag)
+        fs.mkdirSync(curDir);//创建目录
+    }
+}
+
+//读取dir目录 返回一个数组的形式，只读子级的目录
+var curArr = fs.readdirSync('./dir');
+console.log(curArr);
+//读取目录后要操作目录，的到目录后先查看目录是文件夹还是文件
+//fs.statSync 查看文件状态
+//遍历出来得到的每一项查看状态
+curArr.forEach(function (item) {
+    //判断目录的状态要用全目录
+    var stat = fs.statSync('./dir/'+item);
+    //stat代表当前状态 通过这个状态判断是文件还是文件夹
+    //删除的时候只能删除空文件夹
+    if(stat.isDirectory()){
+        console.log('./dir/'+item+"是文件夹");
+        //删除目录
+        fs.rmdirSync('./dir/'+item);
+    }
+    if(stat.isFile()){
+        console.log('./dir/'+item+"是文件");
+        //删除文件
+        fs.unlinkSync('./dir/'+item);
+    }
+});
+
+
+function copy(source,target){
+    //异步的读取通过回调函数的方式，data读到的数据
+    fs.readFile(source, function (err,data) {
+        if(!err){
+            //如果没有错误，写入到文件中将data数据
+            fs.writeFile(target,data, function (err, data) {
+            });
+        }
+    });
+}
