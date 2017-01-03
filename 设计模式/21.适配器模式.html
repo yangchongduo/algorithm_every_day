@@ -5,6 +5,44 @@
     <title>适配器模式</title>
 </head>
 <body>
-
+<h2>使用场景:当然原型链中的方法，框架之间的兼容等也是适配器模式可以发挥的地方。
+    </h2>
+<pre>
+    Adapter，将一个类（对象）的接口（方法或者属性）转化为另一个接口，以满足用户需求，使类（对象）之间接口的不兼容问题通过适配器得以解决。
+</pre>
 </body>
 </html>
+<script>
+
+    //参数适配，对象的默认参数和实际参数的兼容处理
+    var myTest = function(obj){
+        var option = {
+            name : '文瑞',
+            height : '150',
+            weight : '210'
+        };
+        for(var key in option){
+            option[key] = obj[key] || option[key]
+        }
+        return option
+    };
+
+    myTest({
+        height : '151'
+    });  //{name: "文瑞", height: "151", weight: "210"}
+
+    //数据适配，返回的数据是字符串，但是我们要用对象来操作。newStr函数为适配器
+    var str = '文瑞|150|210';
+
+    var newStr = function(string){
+        var arrStr = string.split('|');
+        return {
+            name   : arrStr[0],
+            height : arrStr[1],
+            weight : arrStr[2],
+        }
+    };
+    newStr(str); //{name: "文瑞", height: "150", weight: "210"}
+
+
+</script>

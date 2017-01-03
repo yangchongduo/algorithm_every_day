@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>外观模式</title>
+</head>
+<body>
+<h2>这个有意思 利用这中思想 对这个函数或者类暴露出统一的接口 让我们去使用</h2>
+<pre>Facade，为一组复杂的子系统接口提供一个更高级的统一接口，通过这个接口使得对子系统接口的访问更容易。</pre>
+<div id="isShow">show-hide</div>
+</body>
+</html>
+<script>
+    function setBox(){
+        var getId = document.getElementById('isShow');
+        return {
+            show : function(){
+                getId.style.display = 'block';
+            },
+            hide : function(){
+                getId.style.display = 'none';
+            }
+        }
+    }
+    setTimeout(()=>{
+        setBox().hide()
+    },5000)
+    setTimeout(()=>{
+        setBox().show()
+    },10000)
+
+    /*这样我们正操作这个div的是否显示的时候就不需要关系太多东西。直接通过setBox().show();来显示，通过hide来隐藏。这就是一个简单的外观模式，提供一个更高级的统一接口。所谓更高就是比较高，没有绝对高，也就是高级只是相对的，和css中的position一样，是相对的。
+    * */
+
+</script>
+<script>
+
+    //处理事件监听，注意dom0级与dom2级的区别，可自行百度 这个好哈哈 一般吧 我都会了
+    function addEvent(dom,type,fn){
+        if(dom.addEventListener){
+            dom.addEventListener(type,fn,false);
+        }else if(dom.attachEvent){
+            dom.attachEven('on'+type,fn);
+        }else{
+            dom['on'+type] = fn;
+        }
+    }
+
+    //获取事件对象 这是事件对象放在不同的地方
+    function getEvent(event){
+        return event || window.event;
+    }
+
+    //获取元素
+    function getTarget(event){
+        var event = getEvent(event);
+        return event.target || event.srcElement;
+    }
+
+    //阻止默认行为
+    function preventDefault(event){
+        var event = getEvent(event);
+        if(event.preventDefault){
+            event.preventDefault
+        }else{
+            event.returnValue = false;
+        }
+    }
+
+
+
+
+</script>
