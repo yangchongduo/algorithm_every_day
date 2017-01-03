@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>状态模式</title>
+</head>
+<body>
+<pre>
+    状态模式：(State)，当一个对象的内部状态发生改变时，会导致其行为的改变，这看起来像是改变了对象。
+    和switch  case 差不多的概念 一个对象内部改变 根据条件改变
+</pre>
+</body>
+</html>
+<script>
+    //首先，定义一个奖品数组：
+    var test = ['奖品1','奖品2','奖品3','奖品4','奖品5','奖品6'];
+    //接下来开始定义一个1-6的随机函数来充当骰子，如下：
+
+    var dice = (function(){
+        var result = Math.floor(Math.random()*6+1);
+        return{
+            res : result
+        }
+    })();
+   // 嗯嗯，现在“赌场”已经准备完毕，我们需要让文瑞来掷骰子了，如下：
+
+    ;(function(endRes){
+        if(endRes === 1){
+            console.log('您获得了'+test[0]);
+        }else if(endRes === 2){
+            console.log('您获得了'+test[1]);
+        }else if(endRes === 3){
+            console.log('您获得了'+test[2]);
+        }else if(endRes === 4){
+            console.log('您获得了'+test[3]);
+        }else if(endRes === 5){
+            console.log('您获得了'+test[4]);
+        }else if(endRes === 6){
+            console.log('您获得了'+test[5]);
+        }
+    })(dice.res)
+    //我们打开控制台看看pm瑞瑞的运气吧～
+
+    //您获得了奖品4
+</script>
+<script>
+    var State = function(){
+        var States = {
+            state0 : function(params){
+                //your coding...
+                console.log('state0~');
+            },
+            state1 : function(params){
+                //your coding...
+                console.log('state1~');
+            },
+            state2 : function(params){
+                //your coding...
+                console.log('state2~');
+            },
+            state3 : function(params){
+                //your coding...
+                console.log('state3~');
+            },
+        };
+        function getResult(result){
+            States['state'+result] && States['state'+result]();
+        }
+        return{
+            setState : getResult
+        }
+    }();
+
+    State.setState(0);
+
+</script>
+<script>
+    var log = (function () {
+        var info = "";
+        return {
+            set: function(msg){
+                info += msg + "\n";
+            },
+            getAll: function(){
+                console.log(info); info = "";
+            }
+        }
+    })();
+
+    var MacState = function(){
+        var _needState = {};
+        states = {
+            keyBoard : function(){
+                //your coding...
+                log.set('keyBoard -> 敲击一下');
+            },
+            touchPad : function(){
+                //your coding...
+                log.set('touchPad -> 操作一下');
+            },
+            mouse : function(){
+                //your coding...
+                log.set('mouse -> 按一下');
+            }
+        };
+        //操作方式
+        var Action = {
+            //添加操作
+            addStates : function(){
+                //获取参数
+                var arg = arguments;
+                //清空操作对象
+                _needState = {};
+                //遍历添加动作
+                if(arg.length){
+                    for(var i=0,l=arg.length;i<l;i++){
+                        //存储操作
+                        _needState[arg[i]] = true;
+                    }
+                }
+                return this;
+            },
+            //执行操作
+            mission : function(){
+                for(key in _needState){
+                    states[key] && states[key]();
+                }
+                return this;
+            },
+        };
+        return{
+            addStates : Action.addStates,
+            mission : Action.mission
+        }
+    };
+    var mac = new MacState();
+
+    mac.addStates('touchPad','mouse')
+        .mission()
+        .addStates('keyBoard')
+        .mission();
+    log.getAll();
+
+
+</script>

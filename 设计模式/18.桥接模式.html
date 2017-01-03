@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>桥接模式</title>
+</head>
+<body><h3>
+    一个业务不短的拆分 这样还可以达到函数服用的目的
+</h3>
+<pre>Bridge，在系统沿着多个维度变化的同时，又不断增加其复杂度已达到解藕。
+多维度：抽离不同行为特性，而每一种可以叫做一种维度。例如：pm文瑞哼着歌，吃着酒，蹦蹦跳跳的上学去了。哼歌，吃酒与嘴相关，算一个维度；蹦，跳与动作相关，算一个维度；上学与行为相关，又算一个维度。当然js中我们多指事件与业务逻辑的分离；
+增加复杂度：既然是要解决问题，就需要一些代码操作，也就增加了代码量和复杂度；
+解藕：也就是把多维度分离开来，单独管理各个维度；
+</pre>
+<div id="wr">桥接模式</div>
+</body>
+</html>
+<script>
+    // 这是单独的实现业务逻辑  业务逻辑就是 使背景颜色changed变成yellow  有三个维度 获取元素事件 函数
+    var oWr = document.getElementById('wr');
+    oWr.onclick = function () {
+        this.style.backgroundColor = 'yellow';
+    }
+</script>
+<script>
+    // 假如使用桥接设计模式呢 我不管 你做什么我只是提供这样的方式 我投资你，不管你怎么执行 但是没有我的投资你也无法执行
+    //桥接方法－抽象，不实现具体业务
+    var changeStyle = function(obj,type,fn){
+        console.log('不实现具体业务逻辑')
+        document.getElementById(obj)[type] = fn;
+    };
+    //具体业务
+    changeStyle('wr','onclick',function(){
+        this.style.backgroundColor = 'yellow';
+    })
+//我们所使用的jquery中的方法便是一个个桥接模式的应用场所。
+
+
+</script>

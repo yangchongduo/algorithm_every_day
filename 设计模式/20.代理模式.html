@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代理模式</title>
+</head>
+<body><h1>
+    个人感悟学到这里了: 我发现是不是很多设计模式都可以互相反写 代理模式我们完全可以使用decorate 写这都是很正常的事 我发现  decorate 没有改变原来的代码 桥接模式还是不错的 不管业务只管功能 和jquery 一样，
+</h1>
+<pre>代理模式：Proxy，由于一个对象不能直接引用另一个对象，所以需要通过代理对象在这两个对象之间起到中介的作用。</pre>
+</body>
+</html>
+<script>
+    //瑞瑞
+    var Boy = function(){
+        this.talk = function(){
+            console.log("媳妇，上次是我做的不好，我错了");
+        }
+    };
+    //瑞瑞他媳妇
+    var Girl = function(){
+        this.james = new James();
+        this.talk = function(){
+            console.log("james，我跟你说，我和文瑞吵架了");
+            this.james.talk();
+        }
+    }
+    //我
+    var James = function(){
+        this.boy = new Boy();
+        this.talk = function(){
+            console.log("额，哈哈，吵吵更健康嘛，文瑞也知道错了，他让我跟你说：");
+            this.boy.talk();
+        }
+    }
+    //执行
+    new Girl().talk();
+    //结果
+    /**
+     * james，我跟你说，我和文瑞吵架了
+     * 额，哈哈，吵吵更健康嘛，文瑞也知道错了，他让我跟你说：
+     * 媳妇，上次是我做的不好，我错了
+     */
+
+
+
+
+</script>

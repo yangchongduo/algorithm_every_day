@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模版方法模式</title>
+</head>
+<body>
+<pre>
+    模版方法模式：（Template Method），父类中定义一组操作算法骨架，而将一些实现步骤延迟到子类中，使得子类可以不改变父类的算法结构的同时可重新定义算法中某些实现步骤。
+    个人认为:就是写一个父类的方法，(规定基本的业务) 子类在执行的时候可以重写这个方法
+</pre>
+<div id="nav">
+
+</div>
+</body>
+</html>
+<script>
+    ;(function(window,undefined){
+        var OrgTpl = {
+            pmRui : function(){
+                console.log('文瑞哥哥好');
+            },
+            pmPartner : function(){// 就是这个方法 父类弄个模板(大体的架构，子类重写方法)
+                throw new Error('请重写该方法～');
+            },
+            init : function(){
+                this.pmRui();
+                this.pmPartner();
+            }
+        };
+        window.OrgTpl = OrgTpl;
+    })(window);
+
+    var PartnerOne = function(){
+        OrgTpl.pmPartner=function(){
+            console.log('**你好')
+        }
+        OrgTpl.init();
+    };
+    PartnerOne();
+</script>
+<script>
+    var formateStr = function(param,data){
+        return param.replace(/\{#(\w+)#\}/g,function(match,key){
+            return typeof data[key] === undefined ? "" : data[key];
+        });
+    };
+
+    var Nav = function(data){
+        var _this = this;
+        _this.item = '<li><a href="{#hrefUrl#}" title="{#title#}" {#sign#}>{#content#}</a></li>';
+        _this.html = '<ul>';
+        for(var i=0,l=data.length;i<l;i++){
+            _this.html += formateStr(_this.item,data[i]);
+        }
+        _this.html+='</ul>';
+        return _this.html;
+    }
+
+    var objNav = document.getElementById('nav');
+    objNav.innerHTML = Nav([
+        {
+            hrefUrl : 'http://www.baidu.com',
+            content : '百度一下'
+        },
+        {
+            hrefUrl : 'http://www.zhihu.com',
+            content : '知乎一下'
+        }
+    ])
+    var infoNav = function(data){
+        var _this = this;
+        _this.info = '<i>{#num#}</i>';
+        for(var i=data.length-1;i>=0;i--){
+            data[i].content += formateStr(_this.info,data[i]);
+        };
+        return Nav.call(this,data);
+    };
+    var objNav = document.getElementById('nav');
+    objNav.innerHTML = infoNav([
+        {
+            hrefUrl : 'http://www.baidu.com',
+            content : '百度一下',
+            title : '百度',
+            num : '10',
+            sign : 'sign="1"'
+        },
+        {
+            hrefUrl : 'http://www.zhihu.com',
+            content : '知乎一下',
+            title : '知乎',
+            num : '10',
+            sign : 'sign="2"'
+        }
+    ]);
+
+</script>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>16.享元模式</title>
+</head>
+<body>
+<pre>
+    享元模式：Fiyweight，运用共享技术有效地支持大量的细粒度的对象，避免对象间拥有相同内容造成多余的开销。
+    个人理解:for循环li 这样每次创建一个li 不好 可以标志位，创建了就不在创建了 有点【惰性思想】
+    表现形式很多 写在原型上也属于一种
+</pre>
+<ul id="isShow"></ul>
+</body>
+</html>
+<script>
+    //注释是因为不好
+/*    var arr= ['我是pm瑞瑞1','我是pm瑞瑞2','我是pm瑞瑞3','我是pm瑞瑞4'];
+    var oUl = document.getElementById('isShow');
+    // 我每次都会创建一个li 这个是不好的
+    for(var i=0,l=arr.length;i<l;i++){
+        var oLi = document.createElement('li');
+        oUl.appendChild(oLi);
+        oLi.innerHTML = arr[i];
+    }*/
+</script>
+<script>
+    //享元方法  因为是Flyweight是一个函数  所以需要执行才可以 假如是对象的话就不需要
+    var Flyweight = function(){
+        var created = [];
+        function creat(){
+            var dom = document.createElement('li');
+            document.getElementById('isShow').appendChild(dom);
+            created.push(dom);
+            return dom;
+        }
+        return{//怎么有点像 惰性加载
+            appendLi : function(){
+                if(created.length){
+                    return created.shift();
+                }else{
+                    return creat();
+                }
+            }
+        }
+    };
+    var arr= ['我是pm瑞瑞1','我是pm瑞瑞2','我是pm瑞瑞3','我是pm瑞瑞4'];
+    for(var i=0,l=arr.length;i<l;i++){
+        Flyweight().appendLi().innerHTML = arr[i];
+    }
+    // 为什么不能 Flyweight.appendLi()是以为 Flyweight是一个函数而 不是一个对象
+</script>
+<script>
+    //共有动作
+    var Flyweight = {
+        walkRight : function(right){
+            this.right = right;
+        },
+        walkLeft : function(left){
+            this.left = left;
+        }
+    }
+
+    // 这是一个类
+    var Pmrui = function(right,left){
+        this.right = right;
+        this.left = left;
+    }
+    Pmrui.prototype = Flyweight;
+    var pm1 = new Pmrui(1,2);
+    pm1.walkRight(4);
+    pm1.walkLeft(99);
+    console.log(pm1); //{right: 4, left: 5}
+</script>

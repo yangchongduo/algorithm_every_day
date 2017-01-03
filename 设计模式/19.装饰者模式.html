@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>装饰者模式</title>
+</head>
+<body>
+<h1>在不改变源代码的基础上 进行装饰decorate代码</h1>
+<pre>
+    装饰着模式：decorator，在不改变原对象的基础上，通过对其进行包装扩展（添加属性或者方法）使原有对象可以满足用户的更复杂需求。
+</pre>
+<div id="decorate">decorate来啊</div>
+</body>
+</html>
+<script>
+    function Pmrui(){};
+    Pmrui.prototype.talk = function(){
+        console.log('i like 抽烟~');
+    };
+
+    //装饰者类
+    function PmruiDecorator(param){
+        this._talk = param;
+    };
+    PmruiDecorator.prototype.talk = function(){
+        this._talk.talk();
+        console.log('i like 媳妇～')
+    }
+    PmruiDecorator.prototype.jump = function(){
+        console.log('我能跳5米高～')
+    }
+    new PmruiDecorator(new Pmrui()).talk();
+    //结果
+    //i like 抽烟~
+    //i like 媳妇～
+    new PmruiDecorator(new Pmrui()).jump();
+    //结果
+    //我能跳5米高～
+</script>
+<script>
+    var objA = document.getElementById('decorate');
+    objA.onclick = function(){
+        console.log('做了一些操作～');
+    }
+    var decorator = function(){
+        //获取参数
+        var args = arguments;
+        //获取添加事件的元素
+        var oObj = document.getElementById(args[0]);
+        if(typeof oObj.onclick === 'function'){
+            //缓存点击事件
+            var _firstObj = oObj.onclick;
+            oObj.onclick = function(){
+                _firstObj();
+                args[1]();
+            }
+        }else{
+            oObj.onclick = args[1];
+        }
+    };
+    decorator('decorate',function(){
+        console.log('又做了一些操作');
+    });
+
+
+</script>
